@@ -1,7 +1,7 @@
 from Tool import app, db
 import os
 from Tool.forms import RegistrationForm, LoginForm, ProjectForm, TaskForm, QueryForm, QueryReq, UpdateTask, QueryReqWhere, UpdateQuery
-from Tool.models import User, Project, Task
+from Tool.models import User
 from flask import render_template, request, url_for, redirect, flash, abort
 from flask_login import current_user, login_required, login_user, logout_user
 from picture_handler import add_profile_pic
@@ -201,139 +201,6 @@ def login():
         elif user is None:
             error = 'No such login Pls create one'
     return render_template('login.htm', form=form, error=error)
-
-
-@app.route('/makeproject', methods=['GET', 'POST'])
-@login_required
-def makeproject():
-    form = ProjectForm()
-    if form.validate_on_submit():
-        project = Project(name=form.name.data,
-                          description=form.description.data,
-                          userid=current_user.id)
-        db.session.add(project)
-        db.session.commit()
-        return redirect(url_for('projects'))
-    return render_template('makeproject.htm', form=form)
-
-
-@app.route('/projects', methods=['GET', 'POST'])
-@login_required
-def projects():
-    projects = Project.query.filter_by(userid=current_user.id)
-    projectss = []
-    for project in projects:
-        projectss.append(project)
-    projectss.reverse()
-    return render_template('projects.htm', projects=projectss)
-
-
-@app.route('/maketask/<projectid>', methods=['GET', 'POST'])
-@login_required
-def maketask(projectid):
-    project = Project.query.get_or_404(projectid)
-    if current_user != project.user:
-        abort(403)
-    form = TaskForm()
-    if form.validate_on_submit():
-        task = Task(name=form.name.data,
-                    description=form.description.data,
-                    projectid=projectid)
-        project.completed = 'No'
-        db.session.add(task)
-        db.session.commit()
-        return redirect(url_for('tasks', projectid=projectid))
-    return render_template('maketask.htm', form=form)
-
-
-@app.route('/tasks/<projectid>', methods=['GET', 'POST'])
-@login_required
-def tasks(projectid):
-    tasks = Task.query.filter_by(projectid=projectid)
-    taskss = []
-    for task in tasks:
-        taskss.append(task)
-    taskss.reverse()
-    na = 'No'
-    nas = 'NO'
-    return render_template('tasks.htm', tasks=taskss, projectid=projectid, na=na, nas=nas)
-
-
-@app.route('/task/<task_id>', methods=['GET', 'POST'])
-@login_required
-def task(task_id):
-    task = Task.query.get(task_id)
-    print(task_id)
-    if task.completed == 'No':
-        Status = 'Not started'
-    else:
-        Status = 'Completed'
-    return render_template('task.htm', task=task, Status=Status)
-
-
-@app.route('/change/<to>/<task_id>', methods=['GET', 'POST'])
-@login_required
-def change(to, task_id):
-    a = 1
-    task = Task.query.get_or_404(task_id)
-    project = Project.query.get(task.projectid)
-    task.completed = to
-    db.session.commit()
-    for t in project.tasks:
-        if t.completed == 'No':
-            a = 2
-            break
-    print(a)
-    if a == 2:
-        project.completed = 'No'
-        db.session.commit()
-    else:
-        project.completed = 'Yes'
-        db.session.commit()
-    return redirect(url_for('edit_task', projectid=project.id))
-
-
-@app.route('/del/task/<task_id>/<projectid>', methods=['GET', 'POST'])
-@login_required
-def del_task(task_id, projectid):
-    task = Task.query.get(task_id)
-    db.session.delete(task)
-    db.session.commit()
-    return redirect(url_for('edit_task', projectid=projectid))
-
-
-@app.route('/del/project/<projectid>', methods=['GET', 'POST'])
-@login_required
-def del_project(projectid):
-    project = Project.query.get(projectid)
-    db.session.delete(project)
-    db.session.commit()
-    return redirect(url_for('edit_project'))
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-@app.route('/<task_id>/update', methods=['GET', 'POST'])
-@login_required
-def update(task_id):
-    task = Task.query.get_or_404(task_id)
-    form = UpdateTask()
-    print('noob')
-    if form.validate_on_submit():
-        print('op')
-        task.name = form.name.data
-        task.description = form.description.data
-        task.completed = form.status.data
-        db.session.commit()
-        return redirect(url_for('edit_task', projectid=task.project.id))
-    elif request.method == 'GET':
-        form.name.data = task.name
-        form.description.data = task.description
-        form.status.data = task.completed
-    return render_template('update.htm', form=form, task_id=task_id, projectid=task.project.id)
 
 
 @app.route('/queryform', methods=['GET', 'POST'])

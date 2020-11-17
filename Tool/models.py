@@ -27,32 +27,3 @@ class User(db.Model,UserMixin):
         self.name =name
         self.username = username
         self.password_hash = generate_password_hash(password)
-
-class Project(db.Model):
-    __tablename__ = 'project'
-    id = db.Column(db.Integer , primary_key = True)
-    name = db.Column(db.String)
-    description = db.Column(db.String)
-    completed = db.Column(db.String , default = 'No')
-
-    userid = db.Column(db.Integer , db.ForeignKey('users.id'))
-    tasks = db.relationship('Task' , backref = 'project' , lazy = 'dynamic')
-
-    def __init__(self , name , description , userid):
-        self.name = name
-        self.description = description
-        self.userid = userid
-
-class Task(db.Model):
-    __tablename__= 'tasks'
-    id = db.Column(db.Integer , primary_key = True)
-    name = db.Column(db.String)
-    description = db.Column(db.String)
-    completed = db.Column(db.String , default = 'No')
-
-    projectid = db.Column(db.Integer , db.ForeignKey('project.id'))
-
-    def __init__(self, name, description , projectid):
-        self.name = name
-        self.description = description
-        self.projectid = projectid
