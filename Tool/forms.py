@@ -30,36 +30,13 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Log in')
 
-class ProjectForm(FlaskForm):
-    name = StringField('Project Name' , validators=[DataRequired()])
-    description = TextAreaField('Project Description' , validators=[DataRequired()])
-    submit = SubmitField('Make Project')
-
-class TaskForm(FlaskForm):
-    name = StringField('Task Name' , validators=[DataRequired()])
-    description = TextAreaField('Task Description' , validators=[DataRequired()])
-    submit = SubmitField('Add task')
 class QueryForm(FlaskForm):
-    data_input = FileField('Data', validators=[
+    Test_csv = FileField('Test csv', validators=[
+                           FileAllowed(['csv']), DataRequired()])
+    Train_csv = FileField('Train csv', validators=[
                            FileAllowed(['csv']), DataRequired()])
     submit = SubmitField('Upload Data')
-class QueryReq(FlaskForm):
-    table_name = StringField('Table Name', validators=[DataRequired()])
-    submit = SubmitField('Submit')
 
-class QueryReqWhere(FlaskForm):
-    table_name = StringField('Table Name', validators=[DataRequired()])
-    value = StringField('Value', validators=[DataRequired()])
-    submit = SubmitField('Submit')
-
-class UpdateQuery(FlaskForm):
-    table_name = StringField('Table Name', validators=[DataRequired()])
-    column_name = StringField('Column Name' , validators=[DataRequired()])
-    changed_val = StringField('Changed Value' , validators=[DataRequired()])
-    submit = SubmitField('Submit')
-
-class UpdateTask(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    description = TextAreaField('Description', validators=[DataRequired()])
-    status = RadioField('Status', choices=[('Yes','completed'),('No','not completed') , ('Maybe' , 'In progress')])
-    submit = SubmitField('Update')
+class csv_name(FlaskForm):
+    test_name = StringField('Test csv Name' , validators=[DataRequired()])
+    train_name = StringField('Train csv Name' , validators=[DataRequired()])
