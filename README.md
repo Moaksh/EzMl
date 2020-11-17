@@ -1,4 +1,4 @@
-# ncrypt
-This is the entry of the nCrypt 2020 Creative event 
+# ExMl
+This is the entry of the Exun 2020 Creative event 
 
 This project is made by team XINO
