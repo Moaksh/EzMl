@@ -30,5 +30,5 @@ module.exports = {
   variants: {
     transitionProperty: ['responsive', 'hover', 'focus'],
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/custom-forms'),],
 }
