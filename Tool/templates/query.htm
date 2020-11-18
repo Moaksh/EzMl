@@ -2,25 +2,31 @@
 
 <div class="container">
   <div class="row justify-content-center ">
-    <form method=post enctype=multipart/form-data
-      class="md:w-2/4 w-3/4rounded-lg overflow-hidden shadow-lg p-10 bg-gray-200 ">
-      <h1 class="text-5xl font-extrabold text-medium py-2">Upload a new CSV</h1>
-      <div class="fileUpload width100 bg-gray-400 appearance-none font-medium border-2 border-gray-200 rounded w-full p-2 text-gray-700
-  leading-tight text-left uploadlogo focus:outline-none focus:bg-white focus:border-teal-500 mt-4">
-        <span>Nothing uploaded</span>
+    <form method=post enctype=multipart/form-data class="md:w-2/4 w-3/4rounded-lg overflow-hidden  p-10 ">
+      <h1 class="text-5xl font-extrabold text-medium py-2 text-gray-500">Upload a new CSV</h1>
+      <label class="block text-gray-200 font-bold text-left mb-1 mt-3 md:mb-0 pr-2 tracking-wide"
+        for="inline-full-name">
+        Test CSV
+      </label>
+      <div class="fileUpload width100  bg-purple-900 appearance-none font-medium rounded w-full py-2 px-4
+      text-gray-100 leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500">
+        <span>Nothing uploaded:</span>
         Test Case
         <input type=file name=test class="uploadlogo" required>
       </div>
-
-      <div class="fileUpload width100 bg-gray-400 appearance-none font-medium border-2 border-gray-200 rounded w-full p-2 text-gray-700
-  leading-tight text-left uploadlogo focus:outline-none focus:bg-white focus:border-teal-500 mt-4">
-        <span>Nothing uploaded</span>
+      <label class="block text-gray-200 font-bold text-left mb-1 mt-4 md:mb-0 pr-2 tracking-wide"
+        for="inline-full-name">
+        Train CSV
+      </label>
+      <div class="fileUpload width100 bg-purple-900 appearance-none font-medium rounded w-full py-2 px-4
+        text-gray-100 leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500 ">
+        <span>Nothing uploaded:</span>
         Train Case
         <input type=file name=train class="uploadlogo" required>
       </div>
 
       <input type=submit value=Upload
-        class=" bg-teal-500 appearance-none outline-none hover:bg-teal-400 my-4 focus:shadow-outline focus:outline-none text-white  py-2 px-4 rounded">
+        class=" bg-purple-900  appearance-none outline-none hover:bg-purple-800 transition ease-in-out duration-500 my-2 focus:shadow-outline focus:outline-none text-white  p-3 mt-4 rounded">
     </form>
   </div>
 </div>
