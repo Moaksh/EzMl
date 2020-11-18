@@ -47,6 +47,8 @@ def linear():
         test_csv_name = request.form.get("test_csv")
         y = request.form.get("column_name")
         numeric_column.remove(y)
+        mylist.append("df_train = pandas.read_csv('" + train_csv_name + "')")
+        mylist.append("df_test = pandas.read_csv('" + test_csv_name + "')")
         mylist.append('X_train = df_train[' + str(numeric_column) + ']')
         mylist.append("y_train = df_train['" + y + "']")
         mylist.append('X_test = df_test[' + str(numeric_column) + ']')
