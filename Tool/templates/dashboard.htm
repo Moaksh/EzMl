@@ -15,14 +15,14 @@
           Train Csv
         </label>
         <input type="text" name="train_csv" class="bg-purple-900 appearance-none font-medium  rounded w-full py-2 px-4 text-gray-100
-        leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-700">
+        leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500">
         <br>
         <label class=" block text-gray-500 font-semibold text-left mb-1 mt-2 md:mb-0 pr-2 tracking-wide"
           for="inline-full-name">
           Test Csv
         </label>
         <input type="text" name="test_csv" class="bg-purple-900 appearance-none font-medium  rounded w-full py-2 px-4 text-gray-100
-        leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-700">
+        leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500">
       </div>
       {% for data in numeric_column %}
       <br>
@@ -38,7 +38,8 @@
 
       <input type="submit"
         class="bg-purple-900 appearance-none outline-none hover:bg-purple-800 transition ease-in-out duration-500 my-2 focus:shadow-outline focus:outline-none text-white p-3 mr-2 rounded">
-      <a href="{{url_for('upload_file')}}" class="text-gray-500">Upload a new csv</a>
+      <a href="{{url_for('upload_file')}}"
+        class="text-gray-500 hover:text-purple-600 transition ease-in-out duration-500">Upload a new csv</a>
 
       {% with messages = get_flashed_messages() %}
       {% if messages %}
