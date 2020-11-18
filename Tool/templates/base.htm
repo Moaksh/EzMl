@@ -21,7 +21,7 @@
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.7.6/tailwind.min.css'>
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles/main.css')}}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
-  <title>Genie</title>
+  <title>EzMl</title>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
@@ -57,7 +57,7 @@
 <body class="font-medium ">
   <nav class="nav flex flex-wrap items-center justify-between py-4 px-2 ">
     <div class="flex flex-no-shrink items-center mr-6  text-gray-500">
-      <span class=" text-xl tracking-tight font-bold">Genie</span>
+      <span class=" text-xl tracking-tight font-bold">Ezml</span>
     </div>
 
     <input class="menu-btn hidden" type="checkbox" id="menu-btn">
@@ -76,7 +76,7 @@
 
       <li class="border-t md:border-none">
         <a href="{{ url_for('logout') }}"
-          class="block md:inline-block px-3 py-3 no-underline text-gray-200 hover:text-puple-300">Logout,
+          class="block md:inline-block px-3 py-3 no-underline text-gray-200 hover:text-purple-300">Logout,
           {{current_user.username}}</a>
       </li>
       {%else%}
