@@ -2,7 +2,7 @@ from Tool import app, db
 import os
 import pandas as pd
 import numpy as np
-from Tool.forms import RegistrationForm, LoginForm, QueryForm , csv_name
+from Tool.forms import RegistrationForm, LoginForm, QueryForm, csv_name
 from Tool.models import User
 from flask import render_template, request, url_for, redirect, flash, abort
 from flask_login import current_user, login_required, login_user, logout_user
@@ -29,10 +29,13 @@ def querygen():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def linear():
-    mylist = ['import pandas as pd' , 'import numpy as np' , 'from sklearn.linear_model import LinearRegression']
+    mylist = ['import pandas as pd', 'import numpy as np',
+              'from sklearn.linear_model import LinearRegression']
     numeric_column = []
-    df_test = pd.read_csv('Tool/static/csvs/' + current_user.username + 'test' +'.csv')
-    df_train = pd.read_csv('Tool/static/csvs/' + current_user.username + 'train' +'.csv')
+    df_test = pd.read_csv('Tool/static/csvs/' +
+                          current_user.username + 'test' + '.csv')
+    df_train = pd.read_csv('Tool/static/csvs/' +
+                           current_user.username + 'train' + '.csv')
     for i in df_train.columns:
         if type(df_train[i][0]) == str:
             continue
@@ -51,7 +54,8 @@ def linear():
         mylist.append('lm.fit(X_train , y_train)')
         mylist.append('predictions = lm.predict(X_test)')
         flash(mylist)
-    return render_template("dashboard.htm", numeric_column = numeric_column)
+    return render_template("dashboard.htm", numeric_column=numeric_column)
+
 
 @app.route('/logout')
 @login_required
@@ -74,13 +78,15 @@ def login():
 
             next = request.args.get('next')
             if next == None or not next[0] == '/':
-                next = url_for('index')
+                next = url_for('linear')
             return redirect(next)
         elif user is not None and user.check_password(form.password.data) == False:
             error = 'Wrong Password'
         elif user is None:
             error = 'No such login Pls create one'
     return render_template('login.htm', form=form, error=error)
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -101,14 +107,17 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.htm', form=form)
 
+
 @app.route('/queryform', methods=['GET', 'POST'])
 @login_required
 def upload_file():
     if request.method == 'POST':
         train = request.files['train']
         test = request.files['test']
-        train.save('Tool/static/csvs/' + current_user.username + 'train' + '.csv')
-        test.save('Tool/static/csvs/' + current_user.username + 'test' + '.csv')
+        train.save('Tool/static/csvs/' +
+                   current_user.username + 'train' + '.csv')
+        test.save('Tool/static/csvs/' +
+                  current_user.username + 'test' + '.csv')
         return redirect(url_for('linear'))
     return render_template('query.htm')
 
