@@ -22,14 +22,28 @@
         </button>
       </div>
       <nav :class="{'block': open, 'hidden': !open}" class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
-        <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
+        <a class="block md:block px-3 py-3 no-underline text-gray-700 hover:text-purple-500 "
           href="{{ url_for('linear') }}">Linear
           Regression</a>
-        <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
+        {%if current_user.membership == 'premium'%}
+        <a class="inline-flex md:inline-flex  px-3 py-3 no-underline text-gray-700 hover:text-purple-500 "
           href="{{ url_for('knn') }}">KNN</a>
-        <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
+        <a class="block md:block px-3 py-3 no-underline text-gray-700 hover:text-purple-500 "
           href="{{ url_for('logistic') }}">Logistic</a>
-
+        {%else%}
+        <a class="inline-flex md:inline-flex cursor-not-allowed px-3 py-3 no-underline text-gray-800 hover:text-gray-700 "
+          href="{{ url_for('knn') }}" onclick="alert">KNN <span><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4 mx-1">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg></span></a>
+        <a class="inline-flex md:inline-flex px-3 cursor-not-allowed py-3 no-underline text-gray-800 hover:text-gray-700 "
+          href="{{ url_for('logistic') }}">Logistic <span><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4 mx-1">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg></span></a>
+        {%endif%}
       </nav>
     </div>
   </div>
@@ -41,22 +55,31 @@
       <h1 class="text-5xl font-extrabold text-medium py-2 text-gray-500">Linear Regression</h1>
       <br>
       <div class="w-2/3">
+        <label class="block text-gray-500 font-bold text-xl text-left mb-3 md:mb-0 pr-2 tracking-wide"
+          for="inline-full-name">
+          Name of your CSV files
+        </label>
         <label class="block text-gray-500 font-semibold text-left mb-1 md:mb-0 pr-2 tracking-wide"
           for="inline-full-name">
           Train Csv
         </label>
         <input type="text" name="train_csv" class="bg-purple-900 appearance-none font-medium  rounded w-full py-2 px-4 text-gray-100
-        leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500">
+        leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500" required>
         <br>
         <label class=" block text-gray-500 font-semibold text-left mb-1 mt-2 md:mb-0 pr-2 tracking-wide"
           for="inline-full-name">
           Test Csv
         </label>
         <input type="text" name="test_csv" class="bg-purple-900 appearance-none font-medium  rounded w-full py-2 px-4 text-gray-100
-        leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500">
+        leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500" required>
       </div>
+      <label class="block text-gray-500 font-bold text-xl text-left mt-6 md:mb-0 pr-2 tracking-wide"
+        for="inline-full-name">
+        Select the object you want to predict
+      </label>
       {% for data in numeric_column %}
       <br>
+
       <span class="text-gray-500 font-medium text-left mb-1 md:mb-0 tracking-wide">
         {{data}}
       </span><input type="radio" class="mr-2 mt-1 leading-tight  h-5 w-5 form-radio text-purple-600 " name="column_name"

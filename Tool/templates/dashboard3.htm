@@ -37,19 +37,27 @@
     <h1 class="text-5xl font-extrabold text-medium py-2 text-gray-500">KNN</h1>
     <br>
     <div class=" w-2/3">
+      <label class="block text-gray-500 font-bold text-xl text-left mb-3 md:mb-0 pr-2 tracking-wide"
+        for="inline-full-name">
+        Name of your CSV files
+      </label>
       <label class="block text-gray-500 font-semibold text-left mb-1 md:mb-0 pr-2 tracking-wide" for="inline-full-name">
         Train Csv
       </label>
       <input type="text" name="train_csv" class="bg-purple-900 appearance-none font-medium  rounded w-full py-2 px-4 text-gray-100
-        leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500">
+        leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500" required>
       <br>
       <label class=" block text-gray-500 font-semibold text-left mb-1 mt-2 md:mb-0 pr-2 tracking-wide"
         for="inline-full-name">
         Test Csv
       </label>
       <input type="text" name="test_csv" class="bg-purple-900 appearance-none font-medium  rounded w-full py-2 px-4 text-gray-100
-        leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500">
+        leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500" required>
     </div>
+    <label class="block text-gray-500 font-bold text-xl text-left mt-6 md:mb-0 pr-2 tracking-wide"
+      for="inline-full-name">
+      Select the object you want to predict
+    </label>
     {% for data in numeric_column %}
     <br>
     <span class=" text-gray-500 font-medium text-left mb-1 md:mb-0 tracking-wide">

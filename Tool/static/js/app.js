@@ -18,7 +18,20 @@ $(window, document, undefined).ready(function () {
 });
 
 
-
+function alert() {
+    Swal.fire({
+        title: 'Sorry but you can not use these commands, to use them you need to buy the Premium package',
+        width: 600,
+        padding: '3em',
+        background: '#553C9A',
+    })
+}
+Swal.fire({
+    title: 'Sorry but you can not use these commands, to use them you need to buy the Premium package',
+    width: 600,
+    padding: '3em',
+    background: '#553C9A',
+})
 
 
 $(document).ready(function ($) {
@@ -102,4 +115,4 @@ $('#pills-tab a').on('click', function (e) {
 
 
 
-console.log('Done')
+console.log('Hola Amigo')
