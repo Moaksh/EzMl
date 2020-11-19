@@ -5,6 +5,9 @@
     class="flex flex-col w-full md:w-64 text-gray-700 bg-transparent md:fixed dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0"
     x-data="{ open: false }">
     <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between">
+      <p
+        class="text-lg font-semibold tracking-widest text-gray-800 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
+        Predict</p>
       <button class="rounded-lg md:hidden  focus:outline-none focus:shadow-outline" @click="open = !open">
         <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
           <path x-show="!open" fill-rule="evenodd"
@@ -36,9 +39,9 @@
       Select the object you want to predict
     </label>
     {%for data in numeric_column%}
-    <span class=" text-gray-400  text-left mb-1 md:mb-0 tracking-wide">
+    <span class=" text-gray-400 text-left mb-2 md:mb-0 tracking-wide">
       {{data}}
-    </span><input type="radio" class="mr-2 mt-1 leading-tight  h-5 w-5 form-radio text-purple-600 " name="y_column"
+    </span><input type="radio" class="mr-2 mt-3 leading-tight  h-5 w-5 form-radio text-purple-600 " name="y_column"
       value="{{data}}" required> <br>
     {%endfor%}
     <br>

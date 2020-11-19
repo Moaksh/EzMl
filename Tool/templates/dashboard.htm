@@ -7,7 +7,9 @@
       class="flex flex-col w-full md:w-64 text-gray-700 bg-transparent md:fixed dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0"
       x-data="{ open: false }">
       <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between">
-
+        <p
+          class="text-lg font-semibold tracking-widest text-gray-800 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
+          Generate</p>
         <button class="rounded-lg md:hidden  focus:outline-none focus:shadow-outline" @click="open = !open">
           <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
             <path x-show="!open" fill-rule="evenodd"
@@ -38,7 +40,7 @@
     <form method="POST" action="/dashboard" class="md:w-2/4 w-3/4rounded-lg overflow-hidden  p-10 ">
       <h1 class="text-5xl font-extrabold text-medium py-2 text-gray-500">Linear Regression</h1>
       <br>
-      <div class=" w-2/3">
+      <div class="w-2/3">
         <label class="block text-gray-500 font-semibold text-left mb-1 md:mb-0 pr-2 tracking-wide"
           for="inline-full-name">
           Train Csv
@@ -55,7 +57,7 @@
       </div>
       {% for data in numeric_column %}
       <br>
-      <span class=" text-gray-500 font-medium text-left mb-1 md:mb-0 tracking-wide">
+      <span class="text-gray-500 font-medium text-left mb-1 md:mb-0 tracking-wide">
         {{data}}
       </span><input type="radio" class="mr-2 mt-1 leading-tight  h-5 w-5 form-radio text-purple-600 " name="column_name"
         value="{{data}}" required>
