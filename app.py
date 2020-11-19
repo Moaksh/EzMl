@@ -382,5 +382,35 @@ def premium_to():
     current_user.membership = 'premium'
     db.session.commit()
     return redirect(url_for('index'))
+
+
+########## PAYMENTS ##################
+
+@app.route('/<id>/index', methods=['GET','POST'])
+def hotelpay(hotel_id):
+    hotel = Hotel.query.get_or_404(hotel_id)
+    return render_template('payment2.html', public_key=public_key, id=id)
+
+@app.route('/thankyou')
+def thankyou():
+    return render_template('thankyou.html')
+
+@app.route('/payment', methods=['POST'])
+def payment():
+
+    # CUSTOMER INFORMATION
+    customer = stripe.Customer.create(email=request.form['stripeEmail'],
+                                      source=request.form['stripeToken'])
+
+    # CHARGE/PAYMENT INFORMATION
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=1999,
+        currency='usd',
+        description='Book'
+    )
+
+    return redirect(url_for('thankyou'))
+
 if __name__ == '__main__':
     app.run(debug=True)
