@@ -145,7 +145,7 @@ def logistic():
             return redirect(url_for('upload_file_logic'))
     else:
         return redirect(url_for('get_premium'))
-        return render_template("dashboard2.htm", numeric_column=numeric_column)
+    return render_template("dashboard2.htm", numeric_column=numeric_column)
 
 # logistic regression predict y
 
@@ -212,7 +212,7 @@ def knn():
             df_test = pd.read_csv('Tool/static/csvs/' +
                                   current_user.username + 'test' + 'knn' + '.csv')
             df_train = pd.read_csv('Tool/static/csvs/' +
-                                   current_user.username + 'train' + + 'knn' '.csv')
+                                   current_user.username + 'train' +  'knn' '.csv')
             for i in df_train.columns:
                 if type(df_train[i][0]) == str:
                     continue
