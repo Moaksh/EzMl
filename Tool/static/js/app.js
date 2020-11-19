@@ -20,11 +20,11 @@ $(window, document, undefined).ready(function () {
 
 function alert() {
     Swal.fire({
-        position: 'top-end',
         title: '<p style="color:#CBD5E0;font-size:20px;">Sorry but you can not use this option, to use this you need to buy the Premium package</p>',
         icon: 'warning',
+        footer: '<a href="/1/payment2">Purchase Premium</a>',
         showConfirmButton: false,
-        timer: 5500,
+        timer: 7500,
         background: '#161624',
         backdrop: 'rgba(0,0,0,0.8)',
         timerProgressBar: true,
