@@ -31,6 +31,7 @@ function alert() {
     })
 }
 
+
 $(document).ready(function ($) {
 
     $(".trainUp").change(function () {
