@@ -70,8 +70,36 @@ $(document).ready(function ($) {
 
 });
 
+$(document).ready(function ($) {
+
+    $(".imgUp").change(function () {
+        var Trfilename = readURL(this);
+        $(this).parent().children('span').html(Trfilename);
+    });
+
+    function readURL(input) {
+        var url = input.value;
+        var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+        if (input.files && input.files[0] && (
+            ext == "png" || ext == "jpeg" || ext == "jpg"
+        )) {
+            var path = $(input).val();
+            var Trfilename = path.replace(/^.*\\/, "");
+            $('.img span').html('Uploaded Proof : ' + Trfilename);
+            return "Selected file : " + Trfilename;
+        } else {
+            $(input).val("");
+            return "Only .png and .jpeg formats are allowed!";
+        }
+    }
+
+});
+
 $('#pills-tab a').on('click', function (e) {
     e.preventDefault()
     $(this).tab('show')
 })
 
+
+
+console.log('Done')
