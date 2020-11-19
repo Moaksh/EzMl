@@ -20,10 +20,14 @@ $(window, document, undefined).ready(function () {
 
 function alert() {
     Swal.fire({
-        title: 'Sorry but you can not use these commands, to use them you need to buy the Premium package',
-        width: 600,
-        padding: '3em',
-        background: '#553C9A',
+        position: 'top-end',
+        title: '<p style="color:#CBD5E0;font-size:20px;">Sorry but you can not use these commands, to use them you need to buy the Premium package</p>',
+        icon: 'warning',
+        showConfirmButton: false,
+        timer: 5500,
+        background: '#161624',
+        backdrop: 'rgba(0,0,0,0.8)',
+        timerProgressBar: true,
     })
 }
 Swal.fire({
