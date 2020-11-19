@@ -90,15 +90,16 @@ def linear_predict(y):
         else:
             numeric_column.append(i)
     numeric_column.remove(y)
-    X_train = df_train[numeric_column]
-    y_train = df_train[y]
-    for j in request.form.getlist('x_cases'):
-        X_test.append(int(j))
-    X_test = pd.DataFrame([X_test],index=[0],columns=numeric_column)
-    lm = LinearRegression()
-    lm.fit(X_train , y_train)
-    predictions = lm.predict(X_test)
-    flash(predictions)
+    if request.method == 'POST':
+        X_train = df_train[numeric_column]
+        y_train = df_train[y]
+        for j in request.form.getlist('x_cases'):
+            X_test.append(int(j))
+        X_test = pd.DataFrame([X_test],index=[0],columns=numeric_column)
+        lm = LinearRegression()
+        lm.fit(X_train , y_train)
+        predictions = lm.predict(X_test)
+        flash(predictions)
     return render_template('linear_predict.htm' , numeric_column = numeric_column )
 
 # logistic regression
