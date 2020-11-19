@@ -36,7 +36,7 @@ def linear():
         df_train = pd.read_csv('Tool/static/csvs/' +
                                current_user.username + 'train' + '.csv')
         for i in df_train.columns:
-            if type(df_train[i][0]) == str:
+            if df_train[i].dtypes == object:
                 continue
             else:
                 numeric_column.append(i)
@@ -67,7 +67,7 @@ def ylinear():
         df_train = pd.read_csv('Tool/static/csvs/' +
                                current_user.username + 'train' + '.csv')
         for i in df_train.columns:
-            if type(df_train[i][0]) == str:
+            if df_train[i].dtypes == object:
                 continue
             else:
                 numeric_column.append(i)
@@ -89,7 +89,7 @@ def linear_predict(y):
         df_train = pd.read_csv('Tool/static/csvs/' +
                                current_user.username + 'train' + '.csv')
         for i in df_train.columns:
-            if type(df_train[i][0]) == str:
+            if df_train[i].dtypes == object:
                 continue
             else:
                 numeric_column.append(i)
@@ -98,7 +98,7 @@ def linear_predict(y):
             X_train = df_train[numeric_column]
             y_train = df_train[y]
             for j in request.form.getlist('x_cases'):
-                X_test.append(int(j))
+                X_test.append(float(j))
             X_test = pd.DataFrame([X_test], index=[0], columns=numeric_column)
             lm = LinearRegression()
             lm.fit(X_train, y_train)
@@ -124,7 +124,7 @@ def logistic():
             df_train = pd.read_csv('Tool/static/csvs/' +
                                    current_user.username + 'train' + 'logic' + '.csv')
             for i in df_train.columns:
-                if type(df_train[i][0]) == str:
+                if df_train[i].dtypes == object:
                     continue
                 else:
                     numeric_column.append(i)
@@ -133,6 +133,13 @@ def logistic():
                 test_csv_name = request.form.get("test_csv")
                 y = request.form.get("column_name")
                 numeric_column.remove(y)
+                for i in numeric_column:
+                    for j in df_train[i]:
+                        if j:
+                            continue
+                        else:
+                            numeric_column.remove(i)
+                            break
                 mylist.append(
                     "df_train = pd.read_csv('" + train_csv_name + "')")
                 mylist.append("df_test = pd.read_csv('" + test_csv_name + "')")
@@ -161,7 +168,7 @@ def ylogistic():
         df_train = pd.read_csv('Tool/static/csvs/' +
                                current_user.username + 'train' + 'logic' + '.csv')
         for i in df_train.columns:
-            if type(df_train[i][0]) == str:
+            if df_train[i].dtypes == object:
                 continue
             else:
                 numeric_column.append(i)
@@ -185,16 +192,23 @@ def logistic_predict(y):
         df_train = pd.read_csv(
             'Tool/static/csvs/' + current_user.username + 'train' + 'logic' + '.csv')
         for i in df_train.columns:
-            if type(df_train[i][0]) == str:
+            if df_train[i].dtypes == object:
                 continue
             else:
                 numeric_column.append(i)
         numeric_column.remove(y)
+        for i in numeric_column:
+            for j in df_train[i]:
+                if j:
+                    continue
+                else:
+                    numeric_column.remove(i)
+                    break
         if request.method == 'POST':
             X_train = df_train[numeric_column]
             y_train = df_train[y]
             for j in request.form.getlist('x_cases'):
-                X_test.append(int(j))
+                X_test.append(float(j))
             X_test = pd.DataFrame([X_test], index=[0], columns=numeric_column)
             lg = LogisticRegression()
             lg.fit(X_train, y_train)
@@ -376,6 +390,11 @@ def upload_file_knn():
 def get_premium():
     return render_template('premium_get.htm')
 
-
+@app.route('/to/premium/adshsdjkavnjzsfvngb/NFvdbnadifbsrt/ojgbdobmkdgvdkgbmsfksrn', methods=['GET', 'POST'])
+@login_required
+def premium_to():
+    current_user.membership = 'premium'
+    db.session.commit()
+    return redirect(url_for('index'))
 if __name__ == '__main__':
     app.run(debug=True)
