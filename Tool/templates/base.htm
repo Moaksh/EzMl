@@ -31,7 +31,7 @@
     crossorigin="anonymous"></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js'></script>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script>
 
     $(document).ready(function () {
@@ -80,11 +80,11 @@
       </li>
       {%else%}
       <li class="border-t md:border-none">
-        <a href="{{url_for('ylinear')}}"
-          class="block md:inline-block px-3 py-3 no-underline text-gray-600 hover:text-gray-600 cursor-not-allowed">Predict</a>
+        <a class="block md:inline-block px-3 py-3 no-underline text-gray-600 hover:text-gray-600 cursor-not-allowed "
+          onclick="alert()">Predict</a>
       </li>
       {%endif%}
-      <li class="border-t md:border-none">
+      <li class=" border-t md:border-none">
         <a href="{{ url_for('account') }}"
           class="block md:inline-block px-3 py-3 no-underline text-gray-200 hover:text-purple-300">Account</a>
       </li>

@@ -133,6 +133,13 @@ def logistic():
                 test_csv_name = request.form.get("test_csv")
                 y = request.form.get("column_name")
                 numeric_column.remove(y)
+                for i in numeric_column:
+                    for j in df_train[i]:
+                        if j:
+                            continue
+                        else:
+                            numeric_column.remove(i)
+                            break
                 mylist.append(
                     "df_train = pd.read_csv('" + train_csv_name + "')")
                 mylist.append("df_test = pd.read_csv('" + test_csv_name + "')")
@@ -190,6 +197,13 @@ def logistic_predict(y):
             else:
                 numeric_column.append(i)
         numeric_column.remove(y)
+        for i in numeric_column:
+            for j in df_train[i]:
+                if j:
+                    continue
+                else:
+                    numeric_column.remove(i)
+                    break
         if request.method == 'POST':
             X_train = df_train[numeric_column]
             y_train = df_train[y]
