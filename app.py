@@ -159,7 +159,7 @@ def knn():
             df_test = pd.read_csv('Tool/static/csvs/' +
                                   current_user.username + 'test' + 'knn' + '.csv')
             df_train = pd.read_csv('Tool/static/csvs/' +
-                                   current_user.username + 'train' + + 'knn' '.csv')
+                                   current_user.username + 'train' +  'knn' '.csv')
             for i in df_train.columns:
                 if type(df_train[i][0]) == str:
                     continue
