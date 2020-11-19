@@ -164,63 +164,7 @@ def logistic():
 # logistic regression predict y
 
 
-@app.route('/ytakelogistic', methods=['GET', 'POST'])
-@login_required
-def ylogistic():
-    if current_user.membership == 'premium':
-        numeric_column = []
-        df_train = pd.read_csv('Tool/static/csvs/' +
-                               current_user.username + 'train' + 'logic' + '.csv')
-        for i in df_train.columns:
-            if df_train[i].dtypes == object:
-                continue
-            else:
-                numeric_column.append(i)
-        if request.method == 'POST':
-            y = request.form.get("y_column")
-            print(y)
-            return redirect(url_for('logistic_predict', y=y))
-    else:
-        return redirect(url_for('get_premium'))
-    return render_template('logisticpredicty.htm', numeric_column=numeric_column)
 
-# logistic regression actual predict wala predict
-
-
-@app.route('/logisticpredict/<y>', methods=['GET', 'POST'])
-@login_required
-def logistic_predict(y):
-    if current_user.membership == 'premium':
-        numeric_column = []
-        X_test = []
-        df_train = pd.read_csv(
-            'Tool/static/csvs/' + current_user.username + 'train' + 'logic' + '.csv')
-        for i in df_train.columns:
-            if df_train[i].dtypes == object:
-                continue
-            else:
-                numeric_column.append(i)
-        numeric_column.remove(y)
-        for i in numeric_column:
-            for j in df_train[i]:
-                if j:
-                    continue
-                else:
-                    numeric_column.remove(i)
-                    break
-        if request.method == 'POST':
-            X_train = df_train[numeric_column]
-            y_train = df_train[y]
-            for j in request.form.getlist('x_cases'):
-                X_test.append(float(j))
-            X_test = pd.DataFrame([X_test], index=[0], columns=numeric_column)
-            lg = LogisticRegression()
-            lg.fit(X_train, y_train)
-            predictions = lg.predict(X_test)
-            flash(predictions)
-    else:
-        return redirect(url_for('get_premium'))
-    return render_template('logistic_predict.htm', numeric_column=numeric_column, y=y)
 
     # knn
 
