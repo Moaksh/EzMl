@@ -428,6 +428,7 @@ def payment():
         description='Book'
     )
 
+
     return redirect(url_for('thankyou'))
 
 if __name__ == '__main__':
