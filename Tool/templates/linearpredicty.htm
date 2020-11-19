@@ -36,9 +36,9 @@
       Select the object you want to predict
     </label>
     {%for data in numeric_column%}
-    <span class=" text-gray-400  text-left mb-1 md:mb-0 tracking-wide">
+    <span class=" text-gray-400 text-left mb-2 md:mb-0 tracking-wide">
       {{data}}
-    </span><input type="radio" class="mr-2 mt-1 leading-tight  h-5 w-5 form-radio text-purple-600 " name="y_column"
+    </span><input type="radio" class="mr-2 mt-3 leading-tight  h-5 w-5 form-radio text-purple-600 " name="y_column"
       value="{{data}}" required> <br>
     {%endfor%}
     <br>
