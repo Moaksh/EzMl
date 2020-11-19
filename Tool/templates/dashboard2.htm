@@ -24,7 +24,8 @@
         <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
           href="{{ url_for('linear') }}">Linear
           Regression</a>
-        <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 " href="#">KNN</a>
+        <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
+          href="{{ url_for('knn') }}">KNN</a>
         <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
           href="{{ url_for('logistic') }}">Logistic</a>
 
@@ -53,7 +54,7 @@
     <span class=" text-gray-500 font-medium text-left mb-1 md:mb-0 tracking-wide">
       {{data}}
     </span><input type="radio" class="mr-2 mt-1 leading-tight  h-5 w-5 form-radio text-purple-600 " name="column_name"
-      value="{{data}}">
+      value="{{data}}" required>
 
     <br>
 
