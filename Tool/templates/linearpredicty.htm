@@ -26,7 +26,7 @@
       <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
         href="{{ url_for('knn') }}">KNN</a>
       <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
-        href="{{ url_for('logistic') }}">Logistic</a>
+        href="{{ url_for('ylogistic') }}">Logistic Regression</a>
 
     </nav>
   </div>
@@ -48,6 +48,8 @@
     <br>
     <input type="submit"
       class="bg-purple-900 appearance-none outline-none hover:bg-purple-800 transition ease-in-out duration-500 my-2 focus:shadow-outline focus:outline-none text-white p-3 mr-2 rounded">
+    <a href="{{url_for('upload_file')}}"
+      class="text-gray-500 hover:text-purple-600 transition ease-in-out duration-500">Upload a new csv</a>
 
 
   </form>

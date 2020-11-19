@@ -394,7 +394,7 @@ def upload_file_knn():
 def get_premium():
     return render_template('premium_get.htm')
 
-@app.route('/to/premium/adshsdjkavnjzsfvngb/NFvdbnadifbsrt/ojgbdobmkdgvdkgbmsfksrn', methods=['GET', 'POST'])
+@app.route('/to/premium/adshsdjkavnjzsvngb/NFvdbnadifbsrt/ojgbdobmkdgvdkgbmsfksrn', methods=['GET', 'POST'])
 @login_required
 def premium_to():
     current_user.membership = 'premium'

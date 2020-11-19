@@ -21,7 +21,7 @@ $(window, document, undefined).ready(function () {
 function alert() {
     Swal.fire({
         position: 'top-end',
-        title: '<p style="color:#CBD5E0;font-size:20px;">Sorry but you can not use these commands, to use them you need to buy the Premium package</p>',
+        title: '<p style="color:#CBD5E0;font-size:20px;">Sorry but you can not use this option, to use this you need to buy the Premium package</p>',
         icon: 'warning',
         showConfirmButton: false,
         timer: 5500,
@@ -30,13 +30,6 @@ function alert() {
         timerProgressBar: true,
     })
 }
-Swal.fire({
-    title: 'Sorry but you can not use these commands, to use them you need to buy the Premium package',
-    width: 600,
-    padding: '3em',
-    background: '#553C9A',
-})
-
 
 $(document).ready(function ($) {
 
