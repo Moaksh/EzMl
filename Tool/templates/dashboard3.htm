@@ -24,7 +24,8 @@
         <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
           href="{{ url_for('linear') }}">Linear
           Regression</a>
-        <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 " href="#">KNN</a>
+        <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
+          href="{{ url_for('knn') }}">KNN</a>
         <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
           href="{{ url_for('logistic') }}">Logistic</a>
 
@@ -32,7 +33,7 @@
     </div>
   </div>
   <form method="POST" action="/dashboard3" class="md:w-2/4 w-3/4rounded-lg overflow-hidden  p-10 ">
-    <h1 class="text-5xl font-extrabold text-medium py-2 text-gray-500">Logistic Regression</h1>
+    <h1 class="text-5xl font-extrabold text-medium py-2 text-gray-500">KNN</h1>
     <br>
     <div class=" w-2/3">
       <label class="block text-gray-500 font-semibold text-left mb-1 md:mb-0 pr-2 tracking-wide" for="inline-full-name">
@@ -53,7 +54,7 @@
     <span class=" text-gray-500 font-medium text-left mb-1 md:mb-0 tracking-wide">
       {{data}}
     </span><input type="radio" class="mr-2 mt-1 leading-tight  h-5 w-5 form-radio text-purple-600 " name="column_name"
-      value="{{data}}">
+      value="{{data}}" required>
 
     <br>
 
