@@ -67,7 +67,6 @@
           leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500")}}
         </div>
 
-
         {%if form.password.errors%} {%for error in
           form.password.errors%}
         <small class="text-red-500 text-xs ">{{error}}</small>
@@ -89,14 +88,19 @@
         <small class="text-red-500 text-xs ">{{error}}</small>
         {%endfor%} {%endif%}
       </div>
-      <div class="form-group">
-        {{form.picture.label(class="form-group")}}
-        {{form.picture(class="form-control-file col-md-6")}}
-        {%if form.picture.errors%}
-          {%for error in form.picture.errors%}
-            <small class = 'text-danger'>{{error}}</small>
-          {%endfor%}
-        {%endif%}
+      <label class="block text-gray-500 font-semibold text-left mb-1 md:mb-0 pr-2 tracking-wide" for="inline-full-name">
+        Profile Picture
+      </label>
+
+      <div class="img width100 bg-purple-900 appearance-none font-medium rounded w-full py-2 px-4 mb-4
+        text-gray-100 leading-tight focus:outline-none focus:bg-purple-700 transition ease-in-out duration-500 ">
+        <span>Nothing uploaded:</span>
+        <!-- <input type=file name=train class="trainUp" required> -->
+        {{form.picture(class="imgUp")}} {%if
+          form.picture.errors%} {%for error in form.picture.errors%}
+
+        <small class="text-danger">{{error}}</small>
+        {%endfor%} {%endif%}
       </div>
       <div>
         {{form.submit(class =" bg-purple-900 py-3 appearance-none outline-none hover:bg-purple-800 transition ease-in-out duration-500 my-2 focus:shadow-outline focus:outline-none text-white  py-2 px-4 rounded")}}
