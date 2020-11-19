@@ -13,6 +13,7 @@ class User(db.Model,UserMixin):
     name = db.Column(db.String(64))
     username = db.Column(db.String , unique = True)
     profile_image = db.Column(db.String(64), nullable = False , default = 'developer.png')
+    membership = db.Column(db.String(64), nullable = False , default = 'basic')
     email = db.Column(db.String(64),unique = True,index = True)
     password_hash = db.Column(db.String(128))
 
