@@ -422,11 +422,12 @@ def payment():
 
     # CHARGE/PAYMENT INFORMATION
     charge = stripe.Charge.create(
+        amount=4999,
         customer=customer.id,
-        amount=1999,
         currency='usd',
         description='Book'
     )
+
 
     return redirect(url_for('thankyou'))
 
