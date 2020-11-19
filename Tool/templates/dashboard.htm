@@ -7,7 +7,9 @@
       class="flex flex-col w-full md:w-64 text-gray-700 bg-transparent md:fixed dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0"
       x-data="{ open: false }">
       <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between">
-
+        <p
+          class="text-lg font-semibold tracking-widest text-gray-800 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
+          Generate</p>
         <button class="rounded-lg md:hidden  focus:outline-none focus:shadow-outline" @click="open = !open">
           <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
             <path x-show="!open" fill-rule="evenodd"
@@ -23,26 +25,10 @@
         <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
           href="{{ url_for('linear') }}">Linear
           Regression</a>
-        {%if current_user.membership == 'premium'%}
         <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
           href="{{ url_for('knn') }}">KNN</a>
         <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
           href="{{ url_for('logistic') }}">Logistic</a>
-        {%else%}
-        <a class=" md:inline-flex px-3 py-3 no-underline text-grey-200 inline-flex hover:text-purple-500 "
-          href="{{ url_for('knn') }}">KNN
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-            class="h-4 w-4 ml-1">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-          </svg> </a>
-        <a class="inline-flex md:inline-flex px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
-          href="{{ url_for('logistic') }}">Logistic <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4 ml-1">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-          </svg> </a>
-        {%endif%}
 
       </nav>
     </div>
