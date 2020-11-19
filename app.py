@@ -143,7 +143,7 @@ def logistic():
             return redirect(url_for('upload_file_logic'))
     else:
         return redirect(url_for('get_premium'))
-        return render_template("dashboard2.htm", numeric_column=numeric_column)
+    return render_template("dashboard2.htm", numeric_column=numeric_column)
 
     # knn
 
