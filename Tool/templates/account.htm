@@ -33,6 +33,7 @@
               {%endfor%} {%endif%}
             </div>
             <div class="group">
+              <label>Profile Pic</label>
               {{form.picture}} {%if
             form.picture.errors%} {%for error in form.picture.errors%}
               <small class="text-danger">{{error}}</small>

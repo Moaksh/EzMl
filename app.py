@@ -1,8 +1,9 @@
 from Tool import app, db
 import os
 import pandas as pd
+from picture_handler import add_profile_pic
 import numpy as np
-from Tool.forms import RegistrationForm, LoginForm, QueryForm, csv_name
+from Tool.forms import RegistrationForm, LoginForm, QueryForm, UpdateUserForm
 from Tool.models import User
 from flask import render_template, request, url_for, redirect, flash, abort
 from flask_login import current_user, login_required, login_user, logout_user
@@ -21,10 +22,6 @@ def index():
     return render_template("index.htm")
 
 
-@app.route('/querygen', methods=['GET', 'POST'])
-@login_required
-def querygen():
-    return render_template("howto.htm")
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])
@@ -228,6 +225,30 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.htm', form=form)
 
+@app.route('/account',methods = ['GET','POST'])
+@login_required
+def account():
+    pic = current_user.profile_image
+    form = UpdateUserForm()
+    if form.validate_on_submit():
+        current_user.email = form.email.data
+        current_user.username = form.username.data
+
+
+        if form.picture.data is not None:
+            id = current_user.id
+            pic = add_profile_pic(form.picture.data,id)
+            current_user.profile_image = pic
+
+        flash('User Account Created')
+        db.session.commit()
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    profile_image = url_for('static', filename= current_user.profile_image)
+    return render_template('account.htm', profile_image=profile_image, form=form, pic = pic)
 
 @app.route('/queryform', methods=['GET', 'POST'])
 @login_required

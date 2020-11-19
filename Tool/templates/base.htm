@@ -79,6 +79,11 @@
           class="block md:inline-block px-3 py-3 no-underline text-gray-200 hover:text-purple-300">Logout,
           {{current_user.username}}</a>
       </li>
+
+      <li class="border-t md:border-none">
+        <a href="{{ url_for('account') }}"
+          class="block md:inline-block px-3 py-3 no-underline text-gray-200 hover:text-purple-300">Account</a>
+      </li>
       {%else%}
       <li class="border-t md:border-none">
         <a href="/" class="block md:inline-block px-3 py-3 no-underline text-gray-200 hover:text-purple-300">Home</a>
