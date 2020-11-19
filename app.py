@@ -101,8 +101,8 @@ def linear_predict(y):
             lm.fit(X_train , y_train)
             predictions = lm.predict(X_test)
             flash(predictions)
-        else:
-            return redirect(url_for('get_premium'))
+    else:
+        return redirect(url_for('get_premium'))
     return render_template('linear_predict.htm' , numeric_column = numeric_column  , y = y)
 
 # logistic regression
