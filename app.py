@@ -423,6 +423,7 @@ def payment():
     # CHARGE/PAYMENT INFORMATION
     charge = stripe.Charge.create(
         amount=4999,
+        customer=customer.id,
         currency='usd',
         description='Book'
     )
