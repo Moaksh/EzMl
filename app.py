@@ -139,6 +139,43 @@ def logistic():
         return(redirect(url_for('upload_file_logic')))
     return render_template("dashboard2.htm", numeric_column=numeric_column)
 
+# knn
+
+@app.route('/dashboard3', methods=['GET', 'POST'])
+@login_required
+def knn():
+    mylist = ['import pandas as pd', 'import numpy as np',
+              'from sklearn.preprocessing import StandardScaler',
+              'from sklearn.neighbors import KNeighborsClassifier']
+    numeric_column = []
+    df_test = pd.read_csv('Tool/static/csvs/' +
+                          current_user.username + 'test' + '.csv')
+    df_train = pd.read_csv('Tool/static/csvs/' +
+                           current_user.username + 'train' + '.csv')
+    for i in df_train.columns:
+        if type(df_train[i][0]) == str:
+            continue
+        else:
+            numeric_column.append(i)
+    form = csv_name()
+    if request.method == 'POST':
+        train_csv_name = request.form.get("train_csv")
+        test_csv_name = request.form.get("test_csv")
+        y = request.form.get("column_name")
+        numeric_column.remove(y)
+        mylist.append('scaler = StandardScaler()')
+        mylist.append('scaler.fit(df_train)')
+        mylist.append('scaled_features = scaler.transform(df_train)')
+        mylist.append('df_feat = pd.DataFrame(scaled_features, columns=df_train.columns)')
+        mylist.append('X_train = df_train[' + str(numeric_column) + ']')
+        mylist.append("y_train = df_train['" + y + "']")
+        mylist.append('X_test = df_test[' + str(numeric_column) + ']')
+        mylist.append('knn = KNeighborsClassifier(n_neighbors=10)')
+        mylist.append('knn.fit(X_train , y_train)')
+        mylist.append('predictions = knn.predict(X_test)')
+        flash(mylist)
+    return render_template("dashboard3.htm", numeric_column=numeric_column)
+
 
 @app.route('/logout')
 @login_required

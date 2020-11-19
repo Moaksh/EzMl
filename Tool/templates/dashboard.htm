@@ -21,10 +21,12 @@
         </button>
       </div>
       <nav :class="{'block': open, 'hidden': !open}" class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
-        <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 " href="#">Linear
+        <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
+          href="{{ url_for('linear') }}">Linear
           Regression</a>
         <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 " href="#">KNN</a>
-        <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 " href="#">Logistic</a>
+        <a class="block md:block px-3 py-3 no-underline text-grey-200 hover:text-purple-500 "
+          href="{{ url_for('logistic') }}">Logistic</a>
 
       </nav>
     </div>
