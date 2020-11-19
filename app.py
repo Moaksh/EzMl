@@ -171,9 +171,9 @@ def logistic():
 
 # logistic regression actual predict wala predict
 
-@app.route('/linearpredict/<y>' , methods = ['GET' , 'POST'])
+@app.route('/logisticpredict/<y>' , methods = ['GET' , 'POST'])
 @login_required
-def linear_predict(y):
+def logistic_predict(y):
     if current_user.membership == 'premium':
         numeric_column = []
         X_test = []
@@ -196,7 +196,7 @@ def linear_predict(y):
             flash(predictions)
         else:
             return redirect(url_for('get_premium'))
-    return render_template('linear_predict.htm' , numeric_column = numeric_column  , y = y)
+    return render_template('logistic_predict.htm' , numeric_column = numeric_column  , y = y)
 
     # knn
 
