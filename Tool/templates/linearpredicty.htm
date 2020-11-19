@@ -1,0 +1,20 @@
+{%extends 'base.htm'%}
+{%block content%}
+<br>
+<h1>What is y?</h1>
+<form method="post">
+
+  {%for data in numeric_column%}
+    <span class=" text-gray-500 font-medium text-left mb-1 md:mb-0 tracking-wide">
+      {{data}}
+    </span><input type="radio" class="mr-2 mt-1 leading-tight  h-5 w-5 form-radio text-purple-600 " name="y_column"
+      value="{{data}}" required> <br>
+  {%endfor%}
+  <input type="submit"
+    class="bg-purple-900 appearance-none outline-none hover:bg-purple-800 transition ease-in-out duration-500 my-2 focus:shadow-outline focus:outline-none text-white p-3 mr-2 rounded">
+
+
+  </form>
+
+
+{%endblock%}

@@ -11,6 +11,7 @@ from sqlalchemy import desc, asc
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 import csv
+from sklearn.linear_model import LinearRegression
 
 ALLOWED_EXTENSIONS = {'csv'}
 
@@ -29,11 +30,41 @@ def querygen():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def linear():
-    mylist = ['import pandas as pd', 'import numpy as np',
-              'from sklearn.linear_model import LinearRegression']
+    try:
+        mylist = ['import pandas as pd', 'import numpy as np',
+                  'from sklearn.linear_model import LinearRegression']
+        numeric_column = []
+        df_test = pd.read_csv('Tool/static/csvs/' +
+                              current_user.username + 'test' + '.csv')
+        df_train = pd.read_csv('Tool/static/csvs/' +
+                               current_user.username + 'train' + '.csv')
+        for i in df_train.columns:
+            if type(df_train[i][0]) == str:
+                continue
+            else:
+                numeric_column.append(i)
+        if request.method == 'POST':
+            train_csv_name = request.form.get("train_csv")
+            test_csv_name = request.form.get("test_csv")
+            y = request.form.get("column_name")
+            numeric_column.remove(y)
+            mylist.append("df_train = pd.read_csv('" + train_csv_name + "')")
+            mylist.append("df_test = pd.read_csv('" + test_csv_name + "')")
+            mylist.append('X_train = df_train[' + str(numeric_column) + ']')
+            mylist.append("y_train = df_train['" + y + "']")
+            mylist.append('X_test = df_test[' + str(numeric_column) + ']')
+            mylist.append('lm = LinearRegression()')
+            mylist.append('lm.fit(X_train , y_train)')
+            mylist.append('predictions = lm.predict(X_test)')
+            flash(mylist)
+    except:
+        return redirect(url_for('upload_file'))
+    return render_template("dashboard.htm", numeric_column=numeric_column)
+
+@app.route('/ytakelinear' , methods = ['GET' , 'POST'])
+@login_required
+def ylinear():
     numeric_column = []
-    df_test = pd.read_csv('Tool/static/csvs/' +
-                          current_user.username + 'test' + '.csv')
     df_train = pd.read_csv('Tool/static/csvs/' +
                            current_user.username + 'train' + '.csv')
     for i in df_train.columns:
@@ -41,22 +72,34 @@ def linear():
             continue
         else:
             numeric_column.append(i)
-    form = csv_name()
     if request.method == 'POST':
-        train_csv_name = request.form.get("train_csv")
-        test_csv_name = request.form.get("test_csv")
-        y = request.form.get("column_name")
-        numeric_column.remove(y)
-        mylist.append("df_train = pd.read_csv('" + train_csv_name + "')")
-        mylist.append("df_test = pd.read_csv('" + test_csv_name + "')")
-        mylist.append('X_train = df_train[' + str(numeric_column) + ']')
-        mylist.append("y_train = df_train['" + y + "']")
-        mylist.append('X_test = df_test[' + str(numeric_column) + ']')
-        mylist.append('lm = LinearRegression()')
-        mylist.append('lm.fit(X_train , y_train)')
-        mylist.append('predictions = lm.predict(X_test)')
-        flash(mylist)
-    return render_template("dashboard.htm", numeric_column=numeric_column)
+        y = request.form.get("y_column")
+        print(y)
+        return redirect(url_for('linear_predict' , y = y))
+    return render_template('linearpredicty.htm' , numeric_column = numeric_column)
+
+@app.route('/linearpredict/<y>' , methods = ['GET' , 'POST'])
+@login_required
+def linear_predict(y):
+    numeric_column = []
+    X_test = []
+    df_train = pd.read_csv('Tool/static/csvs/' + current_user.username + 'train' + '.csv')
+    for i in df_train.columns:
+        if type(df_train[i][0]) == str:
+            continue
+        else:
+            numeric_column.append(i)
+    numeric_column.remove(y)
+    X_train = df_train[numeric_column]
+    y_train = df_train[y]
+    for j in request.form.getlist('x_cases'):
+        X_test.append(int(j))
+    X_test = pd.DataFrame([X_test],index=[0],columns=numeric_column)
+    lm = LinearRegression()
+    lm.fit(X_train , y_train)
+    predictions = lm.predict(X_test)
+    flash(predictions)
+    return render_template('linear_predict.htm' , numeric_column = numeric_column )
 
 # logistic regression
 
@@ -64,31 +107,36 @@ def linear():
 @app.route('/dashboard2', methods=['GET', 'POST'])
 @login_required
 def logistic():
-    mylist = ['import pandas as pd', 'import numpy as np',
-              'from sklearn.linear_model import LogisticRegression']
-    numeric_column = []
-    df_test = pd.read_csv('Tool/static/csvs/' +
-                          current_user.username + 'test' + '.csv')
-    df_train = pd.read_csv('Tool/static/csvs/' +
-                           current_user.username + 'train' + '.csv')
-    for i in df_train.columns:
-        if type(df_train[i][0]) == str:
-            continue
-        else:
-            numeric_column.append(i)
-    form = csv_name()
-    if request.method == 'POST':    
-        train_csv_name = request.form.get("train_csv")
-        test_csv_name = request.form.get("test_csv")
-        y = request.form.get("column_name")
-        numeric_column.remove(y)
-        mylist.append('X_train = df_train[' + str(numeric_column) + ']')
-        mylist.append("y_train = df_train['" + y + "']")
-        mylist.append('X_test = df_test[' + str(numeric_column) + ']')
-        mylist.append('lg = LogisticRegression()')
-        mylist.append('lg.fit(X_train , y_train)')
-        mylist.append('predictions = lg.predict(X_test)')
-        flash(mylist)
+    try:
+        mylist = ['import pandas as pd', 'import numpy as np',
+                  'from sklearn.linear_model import LogisticRegression']
+        numeric_column = []
+        df_test = pd.read_csv('Tool/static/csvs/' +
+                              current_user.username + 'test' + 'logic'+ '.csv')
+        df_train = pd.read_csv('Tool/static/csvs/' +
+                               current_user.username + 'train' +'logic'+ '.csv')
+        for i in df_train.columns:
+            if type(df_train[i][0]) == str:
+                continue
+            else:
+                numeric_column.append(i)
+        form = csv_name()
+        if request.method == 'POST':
+            train_csv_name = request.form.get("train_csv")
+            test_csv_name = request.form.get("test_csv")
+            y = request.form.get("column_name")
+            numeric_column.remove(y)
+            mylist.append("df_train = pd.read_csv('" + train_csv_name + "')")
+            mylist.append("df_test = pd.read_csv('" + test_csv_name + "')")
+            mylist.append('X_train = df_train[' + str(numeric_column) + ']')
+            mylist.append("y_train = df_train['" + y + "']")
+            mylist.append('X_test = df_test[' + str(numeric_column) + ']')
+            mylist.append('lg = LogisticRegression()')
+            mylist.append('lg.fit(X_train , y_train)')
+            mylist.append('predictions = lg.predict(X_test)')
+            flash(mylist)
+    except:
+        return(redirect(url_for('upload_file_logic')))
     return render_template("dashboard2.htm", numeric_column=numeric_column)
 
 
@@ -156,6 +204,18 @@ def upload_file():
         return redirect(url_for('linear'))
     return render_template('query.htm')
 
+@app.route('/queryform2', methods=['GET', 'POST'])
+@login_required
+def upload_file_logic():
+    if request.method == 'POST':
+        train = request.files['train']
+        test = request.files['test']
+        train.save('Tool/static/csvs/' +
+                   current_user.username + 'train' + 'logic'+ '.csv')
+        test.save('Tool/static/csvs/' +
+                  current_user.username + 'test' +'logic' +'.csv')
+        return redirect(url_for('logistic'))
+    return render_template('query.htm')
 
 if __name__ == '__main__':
     app.run(debug=True)
