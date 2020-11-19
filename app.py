@@ -411,7 +411,7 @@ def sub(id):
 
 @app.route('/thankyou')
 def thankyou():
-    return render_template('thankyou.htm')
+    return redirect(url_for('premium_to'))
 
 @app.route('/payment', methods=['POST'])
 def payment():
