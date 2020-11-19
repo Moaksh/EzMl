@@ -15,8 +15,12 @@ from werkzeug.utils import secure_filename
 from flask import send_from_directory
 import csv
 from sklearn.linear_model import LinearRegression, LogisticRegression
+import stripe
 
 ALLOWED_EXTENSIONS = {'csv'}
+public_key = 'pk_test_6pRNASCoBOKtIshFeQd4XMUh'
+
+stripe.api_key = "sk_test_BQokikJOvBiI2HlWgH4olfQ2"
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -400,14 +404,14 @@ def premium_to():
 
 ########## PAYMENTS ##################
 
-@app.route('/<id>/index', methods=['GET','POST'])
-def hotelpay(hotel_id):
-    hotel = Hotel.query.get_or_404(hotel_id)
-    return render_template('payment2.html', public_key=public_key, id=id)
+@app.route('/<id>/payment2', methods=['GET','POST'])
+def sub(id):
+    sub = User.query.get_or_404(id)
+    return render_template('payment.htm', public_key=public_key, id=id)
 
 @app.route('/thankyou')
 def thankyou():
-    return render_template('thankyou.html')
+    return render_template('thankyou.htm')
 
 @app.route('/payment', methods=['POST'])
 def payment():
@@ -418,7 +422,6 @@ def payment():
 
     # CHARGE/PAYMENT INFORMATION
     charge = stripe.Charge.create(
-        customer=customer.id,
         amount=1999,
         currency='usd',
         description='Book'
