@@ -1,0 +1,16 @@
+{
+    "plasticType": [
+
+        {"id": 1, "name": "PET", "emission": 6},
+        {"id": 2, "name": "PE", "emission": 6},
+        {"id": 3, "name": "LDPE", "emission": 3},
+        {"id": 4, "name": "HDPE", "emission": 3.11},
+        {"id": 5, "name": "PP", "emission": 1.95},
+        {"id": 6, "name": "PS", "emission": 6.9},
+        {"id": 7, "name": "PVC", "emission": 5.42}
+    ],
+
+    "weight": [
+        
+    ]
+}
